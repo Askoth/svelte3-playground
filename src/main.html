@@ -1,0 +1,22 @@
+hello world {test}
+
+<svelte:component this="{currentSelection}" />
+
+<script>
+  import foo from "./foo.html";
+  import bar from "./bar.html";
+
+  export let test;
+  export let path;
+
+  let currentSelection;
+
+  switch (path) {
+    case "/bar":
+      currentSelection = bar;
+      break;
+    default:
+      currentSelection = foo;
+      break;
+  }
+</script>
