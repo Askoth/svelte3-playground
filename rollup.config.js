@@ -1,4 +1,5 @@
 import svelte from "rollup-plugin-svelte";
+import node from "rollup-plugin-node-resolve";
 
 export default [
   {
@@ -23,6 +24,15 @@ export default [
       file: "dist/main.js",
       format: "iife"
     },
-    plugins: [svelte({ generate: "dom" })]
+    plugins: [
+      svelte({
+        // otherwise the constructor won't work
+        // with "hydrate: true"
+        hydratable: "true"
+      }),
+
+      // needed to add svelte/internal to the client code
+      node()
+    ]
   }
 ];
