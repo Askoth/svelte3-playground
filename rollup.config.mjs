@@ -1,9 +1,9 @@
 import svelte from "rollup-plugin-svelte";
-import node from "rollup-plugin-node-resolve";
+import resolve from "@rollup/plugin-node-resolve";
 
 export default [
   {
-    input: "src/main.html",
+    input: "src/main.svelte",
     output: {
       file: "dist/mainSSR.js",
       format: "cjs"
@@ -11,9 +11,11 @@ export default [
     external: ["svelte/internal"],
     plugins: [
       svelte({
-        // By default, the client-side compiler is used. You
-        // can also use the server-side rendering compiler
-        generate: "ssr"
+        compilerOptions: {
+          generate: "ssr",
+        },
+        include: 'src/**/*.svelte',
+        emitCss: false
       })
     ]
   },
@@ -26,13 +28,17 @@ export default [
     },
     plugins: [
       svelte({
-        // otherwise the constructor won't work
-        // with "hydrate: true"
-        hydratable: "true"
+        emitCss: false,
+        include: 'src/**/*.svelte',
+        compilerOptions: {
+          hydratable: "true",
+        }
       }),
-
-      // needed to add svelte/internal to the client code
-      node()
+      resolve({ 
+        browser: true,
+        exportConditions: ['svelte'],
+        extensions: ['.svelte'],
+      }),
     ]
   }
 ];
