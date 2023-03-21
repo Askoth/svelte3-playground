@@ -3,8 +3,8 @@ hello world {test}
 <svelte:component this="{currentSelection}" />
 
 <script>
-  import foo from "./foo.html";
-  import bar from "./bar.html";
+  import foo from "./foo.svelte";
+  import bar from "./bar.svelte";
 
   export let test;
   export let path;

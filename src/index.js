@@ -1,4 +1,4 @@
-import Main from "./main.html";
+import Main from "./main.svelte";
 
 const app = new Main({
   target: document.querySelector("#root"),
